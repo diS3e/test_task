@@ -6,6 +6,7 @@
 #define TEST_TASK_EVENTREADER_H
 
 #include <memory>
+#include <regex>
 #include "fstream"
 #include "events/event.h"
 #include "events/userEvent.h"
@@ -15,17 +16,22 @@
 class eventReader {
 
 private:
-    std::ifstream& in;
+    std::istream& in;
+    Time lastEvent;
+    static std::regex numRegExp;
+    static std::regex timeRegExp;
+    static std::regex commandRegExp;
 public:
-    explicit eventReader(std::ifstream & istream);
+    explicit eventReader(std::istream & istream);
     bool hasEvent();
-    std::shared_ptr<event> getNextEvent();
+    std::shared_ptr<event> getNextEvent(std::stringstream & out, std::string& buffer);
 
-    static Time parseTime(const std::string& time) {
-        std::tm tm = {};
-        strptime(time.c_str(), "%H:%M", &tm);
-        return std::chrono::system_clock::from_time_t(std::mktime(&tm));
-    }
+    static Time parseTime(const std::string& time);
 
+    static bool validateCommand(const std::string& command);
+
+    static bool validateNumber(const std::string& number);
+
+    static bool validateTime(const std::string& time);
 };
 #endif //TEST_TASK_EVENTREADER_H

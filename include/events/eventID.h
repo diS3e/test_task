@@ -10,7 +10,7 @@ enum eventID {
     SIT = 2,
     WAIT = 3,
     LEAVE = 4,
-    CLOSE_LEAVE = 11,
+    FORCED_LEAVE = 11,
     FREE_SIT = 12,
     ERROR = 13
 };

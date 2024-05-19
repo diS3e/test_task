@@ -8,9 +8,8 @@
 #include <chrono>
 #include <ostream>
 #include "eventID.h"
+#include "../Time.h"
 #include <memory>
-
-typedef std::chrono::time_point<std::chrono::system_clock> Time;
 
 class event {
 public:
